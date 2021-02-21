@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block stylesheet %}
-<link rel="stylesheet" href="static/home.css">
+<link rel="stylesheet" href="static/css/home.css">
 {% endblock %}
 {% block body %}
     <main>
@@ -25,7 +25,7 @@
         </div>
         <h2>~/root/About the creator$ <span class="blink">_</span></h2>
         <section id="aboutWhole">
-            <img src="static/me.jpg" alt="">
+            <img src="static/images/me.jpg" alt="">
             <section id="facts">
                 <h3>Mario Molinito</h3>
                 <ul>
@@ -42,27 +42,27 @@
         <h2>~/root/Technologies$ <span class="blink">_</span></h2>
         <section id="list">
             <section>
-                <img src="static/flask.png" alt="Flask Image">
+                <img src="static/images/flask.png" alt="Flask Image">
                 <p>Flask</p>
             </section>
             <section>
-                <img src="static/html.png" alt="HTML Image">
+                <img src="static/images/html.png" alt="HTML Image">
                 <p>HTML</p>
             </section>
             <section>
-                <img src="static/css.png" alt="CSS Image">
+                <img src="static/images/css.png" alt="CSS Image">
                 <p>CSS</p>
             </section>
             <section>
-                <img src="static/sql.png" alt="SQL Image">
+                <img src="static/images/sql.png" alt="SQL Image">
                 <p>SQL</p>
             </section>
             <section>
-                <img src="static/javascript.png" alt="Javascript Image">
+                <img src="static/images/javascript.png" alt="Javascript Image">
                 <p>JavaScript</p>
             </section>
             <section>
-                <img src="static/python.png" alt="Python Image">
+                <img src="static/images/python.png" alt="Python Image">
                 <p>Python</p>
             </section>
         </section>
@@ -94,59 +94,5 @@
             </form>
         </div>
     </section>
-    <script>
-        const aboutImage = document.querySelector("#about img");
-
-        const contactBlinkers = document.querySelectorAll(".input span[name=blinker]");
-        console.log(contactBlinkers);
-
-        const getRandom = ()=>{
-            return parseInt(Math.random() * 255) + 100;
-        };
-
-        const inputs = document.querySelectorAll("span[role=textbox]");
-        for (const input of inputs)
-        {
-            input.addEventListener("click", function(){
-                // stop all other cursors from blinking
-                // make current one blink
-
-                const blinker = this.parentElement.children[2];
-
-                // turn off all other blinkers
-                for (const b of contactBlinkers)
-                {
-                    if (b.classList.contains("blink"))
-                    {
-                        if (b.classList.contains("hidden"))
-                        {
-                            b.classList.toggle("hidden");
-                        }
-                        console.log("true")
-                        // remove ikt
-                        b.classList.toggle("blink");
-                    }
-                }
-
-                if (blinker.classList.contains("blink") == false)
-                {
-                    // not found, add it
-                    blinker.classList.toggle("blink");
-                }
-
-            })
-        }
-
-        const blink = ()=>{
-            setTimeout(()=>{
-                const blinkers = document.querySelectorAll(".blink");
-                for (const blinker of blinkers)
-                {
-                    blinker.classList.toggle("hidden");
-                }
-                blink();
-            }, 500);
-        };
-        blink();
-    </script>
+    <script src="static/js/index.js"></script>
 {% endblock %}
