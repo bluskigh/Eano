@@ -1,0 +1,43 @@
+.hidden
+{
+    display: none;
+    position: absolute;
+}
+
+#error div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#error div button
+{
+    margin: 1em;
+    margin-bottom: 0;
+}
+
+.selected
+{
+    background-color: #dc3545;
+    border-radius: 10%;
+    color: white;
+    border: black solid 1px;
+    box-shadow: 0em 0em 3.7em black;
+}
+
+footer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 2em;
+}
+
+hr
+{
+    margin-top: 1.5em;
+}
+

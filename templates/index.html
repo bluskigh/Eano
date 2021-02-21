@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+{% block stylesheet %}
+<link rel="stylesheet" href="static/home.css">
+{% endblock %}
+{% block body %}
+    <main>
+        <aside>
+            <h1>EANO</h1>
+            <p>Easy to use note/todo application</p>
+        </aside>
+    </main>
+    <div class="square" style="visibility: hidden">
+        <h4>Doug Lloyd</h4>
+    </div>
+    <div class="square">
+       <h4>Brian Yu</h4>
+    </div>
+    <div class="square">
+        <h4>Doug Lloyd</h4>
+    </div>
+
+    <section id="about">
+        <div class="square">
+            <h4>David Malan</h4>
+        </div>
+        <h2>~/root/About the creator$ <span class="blink">_</span></h2>
+        <section id="aboutWhole">
+            <img src="static/me.jpg" alt="">
+            <section id="facts">
+                <h3>Mario Molinito</h3>
+                <ul>
+                    <li>Faster</li>
+                    <li>Stronger</li>
+                    <li>Dumber</li>
+                </ul>
+            </section>
+        </section>
+        <div class="square" id="second"></div>
+    </section>
+
+    <section id="techno">
+        <h2>~/root/Technologies$ <span class="blink">_</span></h2>
+        <section id="list">
+            <section>
+                <img src="static/flask.png" alt="Flask Image">
+                <p>Flask</p>
+            </section>
+            <section>
+                <img src="static/html.png" alt="HTML Image">
+                <p>HTML</p>
+            </section>
+            <section>
+                <img src="static/css.png" alt="CSS Image">
+                <p>CSS</p>
+            </section>
+            <section>
+                <img src="static/sql.png" alt="SQL Image">
+                <p>SQL</p>
+            </section>
+            <section>
+                <img src="static/javascript.png" alt="Javascript Image">
+                <p>JavaScript</p>
+            </section>
+            <section>
+                <img src="static/python.png" alt="Python Image">
+                <p>Python</p>
+            </section>
+        </section>
+    </section>
+
+    <div id="contactSquare" class="square"></div>
+    <section id="contact">
+        <div id="contactEncap">
+            <section>
+                <h2>Contact</h2>
+            </section>
+            <form action="#">
+                <section class="input" id="name">
+                    <h3>~/root/contact/Name$</h3>
+                    <span type="input" role="textbox" contenteditable></span>
+                    <span class="blink" name="blinker">_</span>
+                </section>
+                <section class="input" id="name">
+                    <h3>~/root/contact/Message$</h3>
+                    <span type="input" role="textbox" contenteditable></span>
+                    <span class="" name="blinker">_</span>
+                </section>
+                <section class="input" id="email">
+                    <h3>~/root/contact/Email$</h3>
+                    <span type="input" role="textbox" contenteditable></span>
+                    <span class="" name="blinker">_</span>
+                </section>
+                <button>Send</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        const aboutImage = document.querySelector("#about img");
+
+        const contactBlinkers = document.querySelectorAll(".input span[name=blinker]");
+        console.log(contactBlinkers);
+
+        const getRandom = ()=>{
+            return parseInt(Math.random() * 255) + 100;
+        };
+
+        const inputs = document.querySelectorAll("span[role=textbox]");
+        for (const input of inputs)
+        {
+            input.addEventListener("click", function(){
+                // stop all other cursors from blinking
+                // make current one blink
+
+                const blinker = this.parentElement.children[2];
+
+                // turn off all other blinkers
+                for (const b of contactBlinkers)
+                {
+                    if (b.classList.contains("blink"))
+                    {
+                        if (b.classList.contains("hidden"))
+                        {
+                            b.classList.toggle("hidden");
+                        }
+                        console.log("true")
+                        // remove ikt
+                        b.classList.toggle("blink");
+                    }
+                }
+
+                if (blinker.classList.contains("blink") == false)
+                {
+                    // not found, add it
+                    blinker.classList.toggle("blink");
+                }
+
+            })
+        }
+
+        const blink = ()=>{
+            setTimeout(()=>{
+                const blinkers = document.querySelectorAll(".blink");
+                for (const blinker of blinkers)
+                {
+                    blinker.classList.toggle("hidden");
+                }
+                blink();
+            }, 500);
+        };
+        blink();
+    </script>
+{% endblock %}

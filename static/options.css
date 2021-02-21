@@ -1,0 +1,22 @@
+main
+{
+    height: 80vh;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+main form
+{
+    margin: 0;
+    padding: 0;
+}
+
+main form input,button
+{
+    margin: .5em;
+}

@@ -1,0 +1,384 @@
+<!--Page that the user sees when he is signed in and goes "home"-->
+{% extends "layout.html" %}
+{% block stylesheet %}
+<link rel="stylesheet" href="static/main.css">
+{% endblock %}
+{% block body %}
+    <h1>Hello, {{s.username}} &#128075;.</h1>
+    <main id="main">
+        <section id="folders">
+            <h2>Folders</h2>
+            <ul id="folderList">
+            {% for folder in folders %}
+                <form action="/main" method="POST">
+                    <input type="text" autocomplete="off" name="information" value="{{folder.title}},{{folder.user_id}},{{folder.f_id}}" style="display: none">
+                    <button type="submit" class="btn btn-outline-secondary" name="picked" value="true">
+                      {{folder.title}} <span class="badge bg-primary">{{folder.amnt}}</span>
+                    </button>
+                    <button type="submit" class="btn btn-danger" name="deleteFolder" value="true">x</button>
+                </form>
+            {% endfor %}
+            </ul>
+            <button id="addFolder">+</button>
+        </section>
+        <section id="middle">
+            {% if folder %}
+            <h2 id="middleFolderTitle">{{folder}}: </h2>
+             <select class="form-select" aria-label="Default select example">
+              <option disabled selected>Sort Method</option>
+              <option value="1">Priority(Descending)</option>
+              <option value="2">Priority(Ascending)</option>
+              <option value="3">Title</option>
+            </select>
+
+            <section id="todoSection">
+                <hr>
+                <section id="notes">
+                    {% if todos %}
+                        {% for note in todos %}
+                        <form action="/main" method="POST" class="wholeEncapsulation">
+                            <div class="whole">
+                                <input type="text" autocomplete="off" name="information" value="{{folder}},{{note.title}},{{note.desc}},{{note.priority}},{{note.note_id}},{{note.folder_id}}" style="display: none;">
+                                <div class="todoDesc">
+                                    <section>
+                                        <button type="submit" class="btn btn-outline-secondary" name="getInformation" value="true">{{note.title}}</button>
+                                        <span class="badge bg-info text-dark">Priority: {{note.priority}}</span>
+                                    </section>
+                                    <input class="form-control form-control-sm input" type="text" placeholder="{{note.desc}}" aria-label="Disabled input example" disabled>
+                                </div>
+                                <button type="submit" class="btn btn-danger delete" name="delete" value="true">X</button>
+                                <button type="submit" class="btn btn-success" name="done" value="true">&#10003;</button>
+                            </div>
+                            <hr>
+                        </form>
+                        {% endfor %}
+                    {% else %}
+                        <h3>No note's :(</h3>
+                    {% endif %}
+                </section>
+                </form>
+
+            <hr>
+                <section id="addTodoSection">
+                    <h3>Add Todo: </h3>
+                    <form action="/main" method="post">
+                        <section>
+                            <input class="form-control" type="text" min="1" name="todoname" placeholder="Todo Name" aria-label="Todo Name" autocomplete="off" required>
+                            <input class="form-control" type="number" min="1" name="priority" placeholder="Priority" aria-label="Priority" autocomplete="off" required>
+                        </section>
+
+                        <input class="form-control" type="text" min="1" name="desc" placeholder="Desciption" aria-label="Description" autocomplete="off">
+
+                        <input type="text" autocomplete="off" name="todoFolder" value="{{folder}}" style="display:none">
+
+                        <button name="add" type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </section>
+            </section>
+            {% else %}
+            <h2 id="folderSelected">No folder has been selected</h2>
+            {% endif %}
+        </section>
+
+    {% if pickedTodoInfo %}
+        <section id="options" class="createFolder" >
+            <section id="folderAlert" class="hidden">
+              <div class="alert alert-success">
+                <strong>Success!</strong>
+                <p></p>
+              </div>
+            </section>
+            <h2>Options: </h2>
+            <form action="/update" method="POST" id="update">
+                <input class="form-control" type="text" name="title" placeholder="New Title Goes Here" aria-label="New Title" autocomplete="off" value="{{pickedTodoInfo[0]}}">
+
+                <textarea name="desc" cols="30" rows="5">{{pickedTodoInfo[1]}}</textarea>
+                <!--<input type="number" name="priority" value="{{pickedTodoInfo[2]}}">-->
+                <input class="form-control" type="number" name="priority" placeholder="New Priority Goes Here :)" aria-label="New Priority" autocomplete="off" value="{{pickedTodoInfo[2]}}">
+
+                <input type="text" autocomplete="off" width="0" height="0" style="display: none;" name="folder" value="{{folder}},{{pickedTodoInfo[3]}}">
+                <button id="optionUpdateButton" type="submit" class="btn btn-primary">Update</button>
+                <button class="btn btn-danger cancel">Cancel</button>
+            </form>
+        </section>
+    {% endif %}
+
+    <section class="createFolder hidden">
+        <section id="folderAlert" class="hidden">
+          <div class="alert alert-success">
+            <strong>Success!</strong>
+            <p></p>
+          </div>
+        </section>
+        <h2>Create Folder:</h2>
+        <input class="form-control" type="text" name="foldername" placeholder="Folder Name" aria-label="Folder Name" autocomplete="off" required>
+        <ul>
+            <li>
+                <button style="background-color: #F83839;">Hobbies</button>
+                <button style="background-color: #513B41;">Life</button>
+                <button style="background-color: #7FE5F0;">School</button>
+                <button>Games</button>
+            </li>
+        </ul>
+        <section>
+            <h3>Start Amount: </h3>
+            <input class="form-control" type="number" name="startAmount" placeholder="0" min="1" max="10" aria-label="Start Amount" autocomplete="off" required value=0>
+        </section>
+        <div id="addButton">
+            <p>+</p>
+        </div>
+        <button class="btn btn-danger cancel">Cancel</button>
+    </section>
+    </main>
+
+    <script>
+    const revealFolderButton = document.querySelector("#folders #addFolder");
+
+    const createFolder = document.querySelector(".createFolder");
+    const addFolderButton = document.querySelector(".createFolder #addButton");
+    const folderTypes = document.querySelectorAll(".createFolder ul li button");
+    const folderAlert = document.querySelector(".createFolder #folderAlert");
+    const alertDiv = document.querySelector(".createFolder div");
+    const folderInput = document.querySelector(".createFolder [name=foldername]");
+    const startAmount = document.querySelector(".createFolder [name=startAmount]");
+
+    const cancel = document.querySelectorAll(".cancel");
+    for (const button of cancel)
+    {
+        button.addEventListener("click", function(){
+            // make it hidden
+            try
+            {
+                document.querySelector("#options").classList.toggle("hidden");
+            }
+            catch (error)
+            {
+                try
+                {
+                    createFolder.classList.toggle("hidden");
+                    startAmount.value = 0;
+                }
+                catch(error)
+                {
+                    console.log(error);
+                }
+            }
+        });
+    }
+
+    let selected = null;
+
+    revealFolderButton.addEventListener("click", function(){
+        createFolder.classList.toggle("hidden");
+    });
+
+    function removeSelected()
+    {
+        if (selected)
+        {
+            selected.classList.toggle("selected");
+        }
+    }
+
+    for (const type of folderTypes)
+    {
+        type.addEventListener("click", function(){
+            // remove any other folderType that has the selected class assigned to it, making the current selected the only oen with the selected class
+            removeSelected();
+            selected = this;
+            this.classList.toggle("selected");
+        });
+    }
+
+    function reveal()
+    {
+        if (folderAlert.classList.contains("hidden"))
+        {
+            folderAlert.classList.toggle("hidden");
+        }
+    }
+
+    function makeAlert(adding, removing)
+    {
+        if (alertDiv.getAttribute("class").indexOf(removing) != -1)
+        {
+            alertDiv.classList.toggle(removing);
+        }
+        if (alertDiv.getAttribute("class").indexOf(adding) == -1)
+        {
+            alertDiv.classList.toggle(adding);
+        }
+    }
+
+    function showAlert(wantSuccess, headerMessage, pMessage)
+    {
+        if (wantSuccess)
+        {
+            makeAlert("alert-success", "alert-warning");
+        }
+        else
+        {
+            makeAlert("alert-warning", "alert-success");
+        }
+
+        folderAlert.children[0].children[0].innerText = headerMessage;
+        alertP.innerText = pMessage;
+        reveal();
+    }
+
+    const alertP = folderAlert.children[0].children[1];
+
+    addFolderButton.addEventListener("click", function(){
+        if (folderInput.value)
+        {
+            if (selected)
+            {
+                fetch("/main", {
+                    method: "POST",
+                    headers: new Headers ({
+                        "content-type":"application/json"
+                    }),
+                    body: JSON.stringify({
+                        foldername: folderInput.value,
+                        // TODO change this to a more efficient data type, such as an int, or id of the type in the database
+                        folderType: selected.innerText,
+                        startAmount: startAmount.value
+                    })
+                })
+                .then((r)=>{
+                    return r;
+                })
+                .then((r)=>{
+                    if (r.status == 200)
+                    {
+                        // show success message
+                        showAlert(true, "Success!", "Added \"" +  folderInput.value + "\" to your folders!");
+                        setTimeout(()=>{
+                            // hide the create folder
+                            createFolder.classList.toggle("hidden");
+                            document.location.href = "/main";
+                        }, 1000)
+                    }
+                    else if (r.status == 401)
+                    {
+                        // a folder with that name already exists, tell the user
+                        showAlert(false, "Error!", "A folder with the name \"" + folderInput.value + "\" already exists.");
+                    }
+                    else if (r.status == 409)
+                    {
+                        // let the user know that invalid keyword areguments were entered
+                        showAlert(false, "Error!", "You trying to be sneaky? Please try again ;)");
+                    }
+                    else
+                    {
+                        showAlert(false, "Error!", "Something went wrong :( Refresh and try again :D");
+                        // if the user does not want to refresh then make him refresh.
+                    }
+                })
+                .catch((e)=>{
+                    console.log(e);
+                    showAlert(false, "Server Error!", "Refresh and try again please :)");
+                });
+            }
+            else
+            {
+                showAlert(false, "Whoooops!", "Did not choose a folder type.");
+            }
+        }
+        else
+        {
+            showAlert(false, "Oh no!", "You did not provide a folder title....");
+        }
+    });
+
+    let updateForm = document.querySelector("#update");
+    if (updateForm)
+    {
+        const title = document.querySelector("#update input");
+        const titleDefault = title.value;
+        const desc = document.querySelector("#update textarea");
+        const descDefault = desc.value;
+        const priority = document.querySelector("#update input:nth-child(2)");
+        const priorityDefault = priority.value;
+
+        updateForm.addEventListener("submit", function(e){
+            if (titleDefault == title.value && descDefault == desc.value && priorityDefault == priority.value)
+            {
+                alert("You did not change anything.")
+                e.preventDefault();
+            }
+            else
+            {
+                if (desc.value == descDefault)
+                {
+                    desc.parentElement.removeChild(desc);
+                }
+                if (title.value == titleDefault)
+                {
+                    title.parentElement.removeChild(title);
+                }
+                if (priority.value == priorityDefault)
+                {
+                    priority.parentElement.removeChild(priority);
+                }
+            }
+        });
+    }
+
+    const todoSections = Object.values(document.querySelectorAll(".wholeEncapsulation"));
+    let selector = document.querySelector("select");
+    selector.addEventListener("change", function(){
+        console.log(this.value);
+        // make a request to the server,
+        fetch("/sort", {
+            method: "POST",
+            headers: new Headers ({
+                "content-type":"application/json"
+            }),
+            body: JSON.stringify({
+                option: this.value,
+                folder: document.querySelector("#middleFolderTitle").innerText.split(":")[0]
+            })
+        })
+        .then(async (r)=>{
+            return await r.json();
+        })
+        .then((r)=>{
+            switch (r)
+            {
+                case 409:
+                    console.log("Did not provide body");
+                    break
+                case 401:
+                    console.log("Did not provide necessary information");
+                default:
+                    console.log("Everything went well.");
+                    break;
+            };
+            let finalResult = [];
+            const array = r["body"];
+            for (const value of array)
+            {
+                // replace current index of value index
+                finalResult.push(todoSections[value]);
+            }
+            // pop off everything in the current todo section, append the current list
+            const notes = document.querySelector("#notes");
+            for (const note of notes.children)
+            {
+                notes.removeChild(note);
+            }
+            // Problem, since, save the default order of the list
+            for (const note of finalResult)
+            {
+                notes.appendChild(note);
+            }
+        })
+        .catch((e)=>{
+            console.log(e);
+            alert("An error has occcured inside of sort change event listener....");
+        });
+
+    });
+    </script>
+{% endblock %}

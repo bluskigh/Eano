@@ -1,0 +1,64 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    color: black;
+    background: white;
+}
+
+/*NAVIGATION*/
+header
+{
+    margin: 0;
+    padding: 1em 1em 0 1em;
+    border-bottom: black solid 1px;
+}
+
+nav
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: black;
+}
+
+#left
+{
+    display: flex;
+    align-items: center;
+}
+#right
+{
+    display: flex;
+    align-items: center;
+}
+
+#left h2 a
+{
+    color: black;
+}
+h2
+{
+    margin: 0;
+    padding: 0;
+}
+
+header li
+{
+    list-style-type: none;
+    padding: .7em;
+}
+
+header li a
+{
+    text-decoration: none;
+    color: black;
+}
+
+/*special classes*/
+/*.hidden*/
+/*{*/
+/*    position: absolute;*/
+/*    visibility: hidden;*/
+/*}*/
+

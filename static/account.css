@@ -1,0 +1,66 @@
+#encapsulation
+{
+    height: 91vh;
+}
+#accountMain
+{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-control
+{
+    margin: .5em;
+}
+
+#accountMain section form button
+{
+    margin: 1em;
+}
+
+#warnUser
+{
+    position: absolute;
+    top: 45vh;
+    right: 38.5%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    box-shadow: 0em 0em 4em black;
+    border-radius: 2em;
+}
+
+#warnUser .alert-danger
+{
+    margin-bottom: 0;
+}
+#warnUser div input
+{
+    width: 40%;
+    margin: 1em;
+}
+
+.highlighted
+{
+    box-shadow: inset 0em 0em 100em #0d6efd;
+}
+
+.warnHidden
+{
+    display: none;
+}
+
+#info
+{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    position: absolute;
+    top: 89%;
+    width: 100%;
+}
+#info div
+{
+    margin-bottom: 0;
+}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<section id="layer">
+    <section id = "aboutMe">
+        <img src="static/me.jpg" width="400" height="500" alt="">
+        <h1>That's Me<span id="excla">!</span></h1>
+    </section>
+</section>
+
+<script>
+const excla = document.querySelector("#excla");
+const blink = ()=>{
+    setTimeout(()=>{
+        excla.classList.toggle("hidden");
+        blink();
+    }, 500)
+}
+blink();
+</script>
+{% endblock %}

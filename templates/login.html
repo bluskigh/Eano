@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <section>
+        <h1>{{header}}</h1>
+        {% if loginpage %}
+            <form action="/login" method="post">
+        {% else %}
+            <form action="/signup" method="post">
+        {% endif %}
+            <!--<input type="text" autocomplete="off" name="username" min="1" placeholder="Username" autofocus required>-->
+            <!--<input type="password" autocomplete="off" name="password" min="1" placeholder="Password" required>-->
+            <input class="form-control" type="text" name="username" placeholder="Username" aria-label="Folder Name" autocomplete="off" required>
+            <input class="form-control" type="password" name="password" placeholder="Password" aria-label="Folder Name" autocomplete="off" required>
+            {% if not loginpage %}
+                <input class="form-control" type="password" name="confirmation" placeholder="Retype password" aria-label="Retype Password" autocomplete="off" required>
+            {% endif %}
+            <!--<button type="submit">Submit</button>-->
+            <button type="submit" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </section>
+{% if not loginpage %}
+<script>
+</script>
+{% endif %}
+{% endblock %}

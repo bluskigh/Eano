@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="static/options.css">
+{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Daily Goal &#127793;</h1>
+    <form action="/options" method="POST">
+        <input class="form-control" type="number" name="update" min="1" placeholder="Daily Goal Number" aria-label="Dialy goal number" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</main>
+{% endblock %}

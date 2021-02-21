@@ -1,0 +1,337 @@
+body
+{
+    text-align: center;
+}
+
+/*Folder */
+form .input
+{
+    height: 50%;
+}
+#folders
+{
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+#folders h2
+{
+    text-decoration: underline 1px solid red;
+}
+#folders #addFolder
+{
+    color: white;
+    background-color: #dc3545;
+    padding: .3em 2em;
+    margin: 0;
+    transition: .3s ease;
+    border: 1px solid white;
+}
+#folders #addFolder:hover
+{
+    border: 1px solid white;
+    box-shadow: inset 0em 0em 3em black;
+    transform: translateY(-.4em);
+}
+
+#folders ul
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+#folders form
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#folders form button[name="deleteFolder"]
+{
+    margin-right: .5em;
+}
+
+/*Main*/
+
+h1
+{
+    padding-top: 1em;
+}
+
+#main
+{
+    margin: 0 auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#main #middle
+{
+    width: 80%;
+    text-align: left;
+    margin: 1em 3em;
+    padding: 3em;
+    box-shadow: 0em 0em 3em black;
+    border-radius: 1em;
+}
+#main #middle select,option
+{
+    margin: 0 .5em;
+}
+#main #middle form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+#main #middle form section
+{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+#main #middle #addTodoSection form section
+{
+    align-items: flex-end;
+}
+#main #middle form section input:nth-child(1)
+{
+    width: 50%;
+    margin: 0;
+
+}
+#main #middle form section input[name="priority"]
+{
+    font-size: .8em;
+    height: 1.5em;
+    width: 20%;
+    margin: 0;
+    background-color: #0dcaf0!important;
+    color: black;
+}
+
+#main #middle form input, button
+{
+    margin: 0 .4em;
+}
+#main #middle form button[name="add"]
+{
+    width: 100%;
+}
+
+
+#todoSection #notes
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+#todoSection #notes form
+{
+    width: 100%;
+}
+#todoSection #notes form .whole
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#todoSection #notes form .whole .todoDesc button
+{
+    width: 30%;
+    text-align: left;
+}
+
+#todoSection #notes form .whole .todoDesc
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#todoSection #notes form .whole .todoDesc section
+{
+    display: flex;
+    align-items: flex-end;
+    text-align: left;
+}
+
+#main #options
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#main #options form  input, textarea, button
+{
+    margin: .5em 0;
+}
+
+hr
+{
+    width: 100%;
+    color: black;
+}
+
+header li a
+{
+    transition: .5s ease;
+}
+
+header li a:hover
+{
+    text-shadow: 0em 0em 1em black;
+}
+
+img
+{
+    border-radius: 50%;
+}
+
+#excla
+{
+    color: red;
+}
+
+#aboutMe
+{
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+#aboutMe h1
+{
+    margin-left: 1em;
+}
+#aboutMe img
+{
+    border-radius: 0%;
+}
+
+
+/* CREATE FOLDER*/
+
+.createFolder
+{
+    width: 35%;
+    background: #333652;
+    color: white;
+    position: absolute;
+    top: 50%;
+    padding: 3em;
+    transform: translateY(-50%);
+    box-shadow: 0em 0em 10em black;
+    text-align: left;
+}
+
+.createFolder ul
+{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 1em 0 ;
+}
+.createFolder ul li button
+{
+    color: white;
+    margin: .5em;
+    border-radius: 2em;
+    padding: 0 1em;
+}
+.createFolder section
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+.createFolder section input
+{
+    width: 50%;
+}
+.createFolder section h3
+{
+    padding: 0;
+    margin: 0 1em;
+}
+.createFolder #addButton
+{
+    text-align: center;
+    color: black;
+    margin-top: 3em;
+    margin-bottom: 1.5em;
+    padding: 2em 4em;
+    background-color: #FAD02C;
+    border-radius: 1em;
+    /*
+
+    TODO fix adding the transition back, when loading page
+    it has a delay because of the transition so the
+    button is on the screen for .5 s after hidding the
+    parent elmeent, figure out how to solve that.
+    */
+    /*transition: .5s ease;*/
+}
+.createFolder #addButton p
+{
+    font-size: 2em;
+}
+.createFolder #addButton:hover
+{
+    color: white;
+    background-color: #ba9b23;
+    box-shadow: 0em 0em 3em white;
+    border: 1px solid white;
+    cursor: pointer;
+}
+.hidden
+{
+    visibility: hidden;
+}
+#folderAlert
+{
+    width: 100%;
+    position: relative;
+    margin: 0;
+    top: -44;
+}
+
+#folderAlert div
+{
+    width: 100%;
+}
+
+.selected
+{
+    box-shadow: inset 0em 0em 2em black;
+    border: 1px white solid;
+}
+
+#folderAlert .alert-warning
+{
+    margin-bottom: 0;
+}
+
+#folderAlert .alert-success
+{
+    margin-bottom: 0;
+}
